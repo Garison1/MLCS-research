@@ -11,7 +11,7 @@ mxSeq_c = (ctypes.c_ushort * len(mxSequences))(*mxSequences)
 seqLen_c = (ctypes.c_ulong * len(seqLengths))(*seqLengths)
 prepr_c = ctypes.c_bool(False)
 
-clib = ctypes.CDLL("C:\\PRG\\C++\\MLCS\\x64\\Release\\MLCS.dll")
+clib = ctypes.CDLL("MLCS.dll")
 clib.ComputeMCLSs.argtypes = (ctypes.POINTER(ctypes.c_ushort), ctypes.POINTER(ctypes.c_ulong), ctypes.c_ulong, ctypes.c_bool, ctypes.c_ulong)
 subseqNum_c = ctypes.c_ulong(0)
 subseqLen_c = ctypes.POINTER(ctypes.c_ulong)()
