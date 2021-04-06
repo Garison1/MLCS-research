@@ -64,7 +64,7 @@ EXPORTED_FUNCTION short ComputeMCLSs(unsigned short* seqData, unsigned long* seq
 	sequences.clear();
 	if (seqNumber > 1)
 	{
-		// Находим алфавит последовательностей
+		// ГЌГ ГµГ®Г¤ГЁГ¬ Г Г«ГґГ ГўГЁГІ ГЇГ®Г±Г«ГҐГ¤Г®ГўГ ГІГҐГ«ГјГ­Г®Г±ГІГҐГ©
 		unsigned long idx, jdx, seqItem, shift;
 		bool find;
 		std::set<unsigned short> alphabet;
@@ -103,7 +103,7 @@ EXPORTED_FUNCTION short ComputeMCLSs(unsigned short* seqData, unsigned long* seq
 			shift = shift + seqLength[seqItem];
 		}
 
-		if (alphabet.size() == 0)	// Если нет общих элементов выходим
+		if (alphabet.size() == 0)	// Г…Г±Г«ГЁ Г­ГҐГІ Г®ГЎГ№ГЁГµ ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў ГўГ»ГµГ®Г¤ГЁГ¬
 		{
 			return 0;
 		}
@@ -111,7 +111,7 @@ EXPORTED_FUNCTION short ComputeMCLSs(unsigned short* seqData, unsigned long* seq
 		{
 			unsigned short* preprData;
 			unsigned long* preprLength;
-			if (preprocessing)    // Создаем новые последовательности все элементы которых пересекаются с алфавитом
+			if (preprocessing)    // Г‘Г®Г§Г¤Г ГҐГ¬ Г­Г®ГўГ»ГҐ ГЇГ®Г±Г«ГҐГ¤Г®ГўГ ГІГҐГ«ГјГ­Г®Г±ГІГЁ ГўГ±ГҐ ГЅГ«ГҐГ¬ГҐГ­ГІГ» ГЄГ®ГІГ®Г°Г»Гµ ГЇГҐГ°ГҐГ±ГҐГЄГ ГѕГІГ±Гї Г± Г Г«ГґГ ГўГЁГІГ®Г¬
 			{
 				preprLength = new unsigned long[seqNumber];
 				unsigned long lenData = 0;
@@ -140,7 +140,7 @@ EXPORTED_FUNCTION short ComputeMCLSs(unsigned short* seqData, unsigned long* seq
 				preprLength = seqLength;
 			}
 
-			// Создаем таблицы преемники
+			// Г‘Г®Г§Г¤Г ГҐГ¬ ГІГ ГЎГ«ГЁГ¶Г» ГЇГ°ГҐГҐГ¬Г­ГЁГЄГЁ
 			std::vector<std::map<unsigned short, std::vector<unsigned long>>> successorTables(seqNumber);
 			shift = 0;
 			unsigned long pos;
@@ -170,7 +170,7 @@ EXPORTED_FUNCTION short ComputeMCLSs(unsigned short* seqData, unsigned long* seq
 				delete[] preprLength;
 			}
 
-			// Построение графа NCSG
+			// ГЏГ®Г±ГІГ°Г®ГҐГ­ГЁГҐ ГЈГ°Г ГґГ  NCSG
 			ncsg.clear();
 			std::vector<unsigned long> sourcePoint(seqNumber);
 			std::vector<unsigned long> sinkPoint(seqNumber);
@@ -224,7 +224,7 @@ EXPORTED_FUNCTION short ComputeMCLSs(unsigned short* seqData, unsigned long* seq
 				levelKeys = tmpKeys;
 			}
 
-			// Сортировка графа ForwardTopSort()
+			// Г‘Г®Г°ГІГЁГ°Г®ГўГЄГ  ГЈГ°Г ГґГ  ForwardTopSort()
 			std::set<unsigned long> levelSerialNum;
 			std::set<unsigned long> tmpSerialNum;
 			std::set<unsigned long>::iterator it_levelSerialNum;
@@ -263,7 +263,7 @@ EXPORTED_FUNCTION short ComputeMCLSs(unsigned short* seqData, unsigned long* seq
 				levelSerialNum = tmpSerialNum;
 			}
 
-			// получение всех MLCS
+			// ГЇГ®Г«ГіГ·ГҐГ­ГЁГҐ ГўГ±ГҐГµ MLCS
 			sequences = find_all_paths(pointIndex[sinkPoint], pointIndex[sourcePoint], subCount);
 			for (idx = 0; idx < sequences.size(); )
 			{
@@ -276,7 +276,7 @@ EXPORTED_FUNCTION short ComputeMCLSs(unsigned short* seqData, unsigned long* seq
 					sequences[idx].erase(sequences[idx].begin());
 					for (jdx = 0; jdx < sequences[idx].size(); jdx++)
 					{
-						sequences[idx][jdx] = *ncsg[sequences[idx][jdx]]["char"].begin(); // все MLCSs записаны реверсивно
+						sequences[idx][jdx] = *ncsg[sequences[idx][jdx]]["char"].begin(); // ГўГ±ГҐ MLCSs Г§Г ГЇГЁГ±Г Г­Г» Г°ГҐГўГҐГ°Г±ГЁГўГ­Г®
 					}
 					idx++;
 				}
@@ -298,7 +298,7 @@ EXPORTED_FUNCTION short ComputeMCLSs(unsigned short* seqData, unsigned long* seq
 			sequences.push_back({});
 			for (unsigned long idx = 0; idx < seqLength[0]; idx++)
 			{
-				sequences[0].insert(sequences[0].begin(), seqData[idx]);  // реверсивно переписываем первый элемент
+				sequences[0].insert(sequences[0].begin(), seqData[idx]);  // Г°ГҐГўГҐГ°Г±ГЁГўГ­Г® ГЇГҐГ°ГҐГЇГЁГ±Г»ГўГ ГҐГ¬ ГЇГҐГ°ГўГ»Г© ГЅГ«ГҐГ¬ГҐГ­ГІ
 			}
 			return 1;
 		}
